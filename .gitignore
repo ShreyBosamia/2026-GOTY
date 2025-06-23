@@ -1,3 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# built images
+/2026-GOTY.*
+
+# VIM backup files
+/*~
