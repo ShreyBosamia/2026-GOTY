@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://boiutoodubtuu"]
+[gd_scene load_steps=4 format=3 uid="uid://boiutoodubtuu"]
+
+[ext_resource type="PackedScene" uid="uid://dpuy0xsbq6sl4" path="res://player.tscn" id="1_a202f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4xowi"]
 size = Vector3(60, 2, 60)
@@ -22,3 +24,14 @@ skeleton = NodePath("../..")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.360274, 0.932847, 0, -0.932847, 0.360274, 0, 9.54633, -0.407898)
 shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_a202f")]
+
+[node name="PivotCamera" type="Marker3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, 0.0277557, 0.269392, -0.00256377)
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/PivotCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+projection = 1
+fov = 1.2
+size = 0.829

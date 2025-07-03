@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://dpuy0xsbq6sl4"]
+[gd_scene load_steps=29 format=3 uid="uid://dpuy0xsbq6sl4"]
 
 [ext_resource type="Texture2D" uid="uid://hwecn8s5bar8" path="res://Small-8-Direction-Characters_by_AxulArt/Small-8-Direction-Characters_by_AxulArt.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://b2l3f62ylxuo3" path="res://player.gd" id="1_onrkg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_4flbx")
@@ -254,14 +255,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4flbx"]
+size = Vector3(0.134781, 0.153465, 0.149475)
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_onrkg")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="CharacterBody3D"]
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_7hik5")
-animation = &"idle_NorthWest"
+animation = &"walk_North"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00411763, -0.0143192, -0.00250839)
+shape = SubResource("BoxShape3D_4flbx")
