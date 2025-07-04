@@ -26,6 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 0.360274, 0.932847, 0, -0.932847, 0.360274, 
 shadow_enabled = true
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("1_a202f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.114655, 0)
 
 [node name="PivotCamera" type="Marker3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, -2.98023e-08, 1, 0, -1, -2.98023e-08, 0.0277557, 0.269392, -0.00256377)

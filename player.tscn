@@ -1,7 +1,55 @@
 [gd_scene load_steps=29 format=3 uid="uid://dpuy0xsbq6sl4"]
 
 [ext_resource type="Texture2D" uid="uid://hwecn8s5bar8" path="res://Small-8-Direction-Characters_by_AxulArt/Small-8-Direction-Characters_by_AxulArt.png" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://b2l3f62ylxuo3" path="res://player.gd" id="1_onrkg"]
+
+[sub_resource type="GDScript" id="GDScript_4flbx"]
+script/source = "extends CharacterBody3D
+
+
+const SPEED = 1.0
+const JUMP_VELOCITY = 4.5
+var facing_direction: String = \"South\"
+@onready var animated_sprite_3d = $AnimatedSprite3D
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir := Input.get_vector(\"left\", \"right\", \"up\", \"down\")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+		
+		# Calculate the angle in the XZ plane relative to the positive X axis (East)
+		var angle = Vector2(direction.x, direction.z).angle()
+
+		# Map the angle (in radians) to an index from 0 to 7
+		# This mapping assumes East is 0, North is 2, West is 4, South is 6
+		# and the diagonals fall in between.
+		# Adjust the range to -PI to PI
+		if angle < 0:
+			angle += TAU # Add a full circle to get positive angles
+
+		var index = wrapi(int((angle + TAU / (TAU / 16.0)) / (TAU / 8.0)), 0, 8) # TAU is 2*PI, representing a full circle
+
+		const idx_to_dir: Array[String] = [\"West\", \"NorthWest\", \"North\", \"NorthEast\", \"East\", \"SouthEast\", \"South\", \"SouthWest\"] # Map indices to your animation names
+
+		animated_sprite_3d.play(\"walk_\" + idx_to_dir[index])
+		facing_direction = idx_to_dir[index] # Update the facing direction
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+		animated_sprite_3d.play(\"idle_\" + facing_direction)
+		
+	move_and_slide()
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_4flbx")
@@ -259,13 +307,13 @@ animations = [{
 size = Vector3(0.134781, 0.153465, 0.149475)
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
-script = ExtResource("1_onrkg")
+script = SubResource("GDScript_4flbx")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_7hik5")
-animation = &"walk_North"
+animation = &"idle_East"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00411763, -0.0143192, -0.00250839)
