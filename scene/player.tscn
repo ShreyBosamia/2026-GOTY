@@ -7,8 +7,10 @@ script/source = "extends CharacterBody3D
 
 
 const SPEED = 0.5
-const Z_AXIS_SPEED_MULTIPLIER = 4 
-const JUMP_VELOCITY = 4.5
+const SHIFT_SPEED_X = 0.80
+const SHIFT_SPEED_Z = 1.5
+const Z_AXIS_SPEED_MULTIPLIER = 2
+const JUMP_VELOCITY = 2
 var facing_direction: String = \"South\"
 @onready var animated_sprite_3d = $AnimatedSprite3D
 
@@ -22,11 +24,15 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector(\"left\", \"right\", \"up\", \"down\")
+	var shift_sprint := Input.is_action_pressed(\"shift\")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED * Z_AXIS_SPEED_MULTIPLIER
-		
+		if not shift_sprint:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * Z_AXIS_SPEED_MULTIPLIER
+		else: 
+			velocity.x = direction.x * SHIFT_SPEED_X
+			velocity.z = direction.z * SHIFT_SPEED_Z * Z_AXIS_SPEED_MULTIPLIER
 		# Calculate the angle in the XZ plane relative to the positive X axis (East)
 		var angle = Vector2(direction.x, direction.z).angle()
 
