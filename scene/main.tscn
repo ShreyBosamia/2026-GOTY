@@ -8,6 +8,7 @@
 [node name="Levels" type="Node3D" parent="."]
 
 [node name="GridMap" type="GridMap" parent="Levels"]
+visible = false
 mesh_library = ExtResource("2_wp4xf")
 cell_size = Vector3(1, 1, 1)
 data = {
@@ -16,6 +17,13 @@ data = {
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="GridMap2" type="GridMap" parent="Levels"]
+visible = false
+mesh_library = ExtResource("2_wp4xf")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(-1, 65535, 4, -65536, 65535, 4, -65536, 0, 4, -65536, 1, 4, -1, 1, 4, -2, 1, 4, -2, 0, 4, -1, 0, 4, -2, 65535, 4, -2, 65534, 4, -1, 65534, 4, -65536, 65534, 4, -65535, 1, 4, -65535, 65535, 4, -65535, 0, 655364, -65535, 65534, 1441796, -65535, 65533, 1441796, -65536, 65533, 4, -1, 65533, 1048580, -2, 65533, 1441796, 65535, 65534, 1441793, 0, 65533, 1441793, 1, 65534, 1441793, 1, 65535, 1441793, 1, 0, 1441793, 1, 1, 1441793)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Characters" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.360274, 0.932847, 0, -0.932847, 0.360274, 0, 9.54633, -0.407898)
