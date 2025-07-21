@@ -3,7 +3,8 @@ extends CharacterBody3D
 var target_velocity = Vector3.ZERO
 @onready var animated_sprite: AnimatedSprite3D = $AnimatedSprite3D
 var last_direction = Vector3(0, 0, -1) #default to facing south
-@onready var camera_3d: Camera3D = $Node3D/PivotCamera/Camera3D
+@onready var camera_3d: Camera3D = $PivotCamera/Camera3D
+@onready var camera_pivot: Marker3D = $PivotCamera 
 	
 func _physics_process(delta):
 	var direction = Vector3.ZERO

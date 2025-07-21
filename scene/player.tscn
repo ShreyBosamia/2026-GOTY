@@ -321,3 +321,11 @@ animation = &"idle_East"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00411763, -0.0143192, -0.00250839)
 shape = SubResource("BoxShape3D_4flbx")
+
+[node name="PivotCamera" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866026, 0.5, 0, -0.5, 0.866026, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="PivotCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+fov = 2.9
+size = 0.616
