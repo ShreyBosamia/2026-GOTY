@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c65u6c256e647"]
+[gd_scene load_steps=11 format=3 uid="uid://c65u6c256e647"]
 
 [ext_resource type="MeshLibrary" uid="uid://bwpqb5xsjr5wu" path="res://mesh_library/blocks_mesh_lib.tres" id="1_jirdo"]
 [ext_resource type="Script" uid="uid://b630till1yv4o" path="res://scene/teleport.gd" id="2_bt44k"]
@@ -11,6 +11,39 @@ size = Vector3(1, 1.69214, 0.161621)
 [sub_resource type="BoxMesh" id="BoxMesh_bt44k"]
 material = ExtResource("4_kx6l7")
 size = Vector3(0.98, 1.67, 0.115)
+
+[sub_resource type="Gradient" id="Gradient_kx6l7"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n46q3"]
+gradient = SubResource("Gradient_kx6l7")
+width = 276
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kx6l7"]
+emission_shape_offset = Vector3(0, 0.165, 0)
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.0
+linear_accel_max = -2.23517e-06
+radial_accel_min = 0.999998
+radial_accel_max = 0.999998
+attractor_interaction_enabled = false
+scale_min = 0.5
+scale_max = 0.75
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("GradientTexture1D_n46q3")
+hue_variation_min = 0.05
+hue_variation_max = 0.06
+turbulence_noise_speed = Vector3(1, 0, 0)
+
+[sub_resource type="QuadMesh" id="QuadMesh_n46q3"]
+size = Vector2(0.03, 0.03)
 
 [node name="level1" type="GridMap"]
 mesh_library = ExtResource("1_jirdo")
@@ -25,16 +58,32 @@ script = ExtResource("2_bt44k")
 dest_scene = ExtResource("3_bt44k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00556946, 0.847902, 1.93787)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.17235, 0.853755, -0.0125999)
+visible = false
 shape = SubResource("BoxShape3D_0ha60")
 debug_color = Color(3.27289e-06, 0.583847, 0.784639, 0.42)
 
 [node name="Timer" type="Timer" parent="Area3D"]
 wait_time = 2.0
+one_shot = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0117188, 0.842834, 1.94349)
+transform = Transform3D(0.0226699, 0, -0.999743, 0, 1, 0, 0.999743, 0, 0.0226699, -1.17413, 0.842834, -0.0100317)
 mesh = SubResource("BoxMesh_bt44k")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Area3D/MeshInstance3D"]
+transform = Transform3D(0.752569, -0.000227083, 0.00846955, 0.000127579, -1.34098, -0.00139538, 0.034147, 0.0100146, -0.186656, -0.0174076, 0.217437, -0.012135)
+amount = 2000
+lifetime = 1.5
+preprocess = 4.0
+speed_scale = 0.05
+randomness = 0.3
+fixed_fps = 60
+visibility_aabb = AABB(-0.852001, -0.443672, -0.762959, 1.70674, 1.218, 1.52748)
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_kx6l7")
+draw_pass_1 = SubResource("QuadMesh_n46q3")
 
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]
+[connection signal="timeout" from="Area3D/Timer" to="Area3D" method="_on_timer_timeout"]
