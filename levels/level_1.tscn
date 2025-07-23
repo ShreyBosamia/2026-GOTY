@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c65u6c256e647"]
+[gd_scene load_steps=10 format=3 uid="uid://c65u6c256e647"]
 
 [ext_resource type="MeshLibrary" uid="uid://bwpqb5xsjr5wu" path="res://mesh_library/blocks_mesh_lib.tres" id="1_jirdo"]
 [ext_resource type="Script" uid="uid://b630till1yv4o" path="res://scene/teleport.gd" id="2_bt44k"]
@@ -11,13 +11,6 @@ size = Vector3(1, 1.69214, 0.161621)
 [sub_resource type="BoxMesh" id="BoxMesh_bt44k"]
 material = ExtResource("4_kx6l7")
 size = Vector3(0.98, 1.67, 0.115)
-
-[sub_resource type="Gradient" id="Gradient_kx6l7"]
-colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_n46q3"]
-gradient = SubResource("Gradient_kx6l7")
-width = 276
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kx6l7"]
 emission_shape_offset = Vector3(0, 0.165, 0)
@@ -36,13 +29,24 @@ radial_accel_max = 0.999998
 attractor_interaction_enabled = false
 scale_min = 0.5
 scale_max = 0.75
-color = Color(1, 0, 0, 1)
-color_ramp = SubResource("GradientTexture1D_n46q3")
 hue_variation_min = 0.05
 hue_variation_max = 0.06
 turbulence_noise_speed = Vector3(1, 0, 0)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kx6l7"]
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(0, 1, 0, 1)
+emission = Color(0.520463, 1, 0.617988, 1)
+emission_energy_multiplier = 1.4
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+distance_fade_max_distance = 0.0
+
 [sub_resource type="QuadMesh" id="QuadMesh_n46q3"]
+material = SubResource("StandardMaterial3D_kx6l7")
 size = Vector2(0.03, 0.03)
 
 [node name="level1" type="GridMap"]
@@ -59,7 +63,6 @@ dest_scene = ExtResource("3_bt44k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.17235, 0.853755, -0.0125999)
-visible = false
 shape = SubResource("BoxShape3D_0ha60")
 debug_color = Color(3.27289e-06, 0.583847, 0.784639, 0.42)
 
@@ -80,7 +83,7 @@ speed_scale = 0.05
 randomness = 0.3
 fixed_fps = 60
 visibility_aabb = AABB(-0.852001, -0.443672, -0.762959, 1.70674, 1.218, 1.52748)
-transform_align = 1
+transform_align = 3
 process_material = SubResource("ParticleProcessMaterial_kx6l7")
 draw_pass_1 = SubResource("QuadMesh_n46q3")
 

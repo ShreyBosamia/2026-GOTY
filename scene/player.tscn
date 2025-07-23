@@ -8,8 +8,8 @@ script/source = "extends CharacterBody3D
 
 const SPEED = 0.5
 const SHIFT_SPEED_X = 0.80
-const SHIFT_SPEED_Z = 1.5
-const Z_AXIS_SPEED_MULTIPLIER = 2
+const SHIFT_SPEED_Z = 0.8
+const Z_AXIS_SPEED_MULTIPLIER = 1
 const JUMP_VELOCITY = 2
 var facing_direction: String = \"South\"
 @onready var animated_sprite_3d = $AnimatedSprite3D

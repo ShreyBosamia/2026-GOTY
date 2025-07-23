@@ -1,17 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://boiutoodubtuu"]
+[gd_scene load_steps=6 format=3 uid="uid://boiutoodubtuu"]
 
 [ext_resource type="Script" uid="uid://bh5d5hijc5lcy" path="res://scene/main.gd" id="1_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://c65u6c256e647" path="res://levels/level_1.tscn" id="1_wp4xf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v0l8b"]
+sky_top_color = Color(0, 0.513726, 1, 1)
+sky_horizon_color = Color(0.152941, 0.447059, 1, 1)
+ground_bottom_color = Color(4.33177e-07, 0.587142, 0, 1)
+ground_horizon_color = Color(0.527888, 0.733552, 0.0802408, 1)
+ground_curve = 0.0303144
+sun_angle_max = 91.64
+
+[sub_resource type="Sky" id="Sky_wp4xf"]
+sky_material = SubResource("ProceduralSkyMaterial_v0l8b")
+process_mode = 1
+radiance_size = 4
+
+[sub_resource type="Environment" id="Environment_brvut"]
+background_mode = 2
+background_color = Color(1, 1, 1, 0.0980392)
+sky = SubResource("Sky_wp4xf")
+ambient_light_source = 1
+ambient_light_energy = 0.93
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.12
+glow_strength = 2.0
+glow_hdr_luminance_cap = 5.44
+volumetric_fog_density = 1.0
+volumetric_fog_gi_inject = 0.45
+volumetric_fog_length = 4.0
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_v0l8b")
 spawn_point_path = NodePath("SpawnPoint")
 
-[node name="level1" parent="." instance=ExtResource("1_wp4xf")]
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.360274, 0.932847, 0, -0.932847, 0.360274, 0, 9.54633, -0.407898)
+transform = Transform3D(-0.73373, 0.67851, -0.0355592, 0, 0.052336, 0.99863, 0.679441, 0.732724, -0.0384005, 0, 0, 0)
+light_energy = 1.9
 shadow_enabled = true
+directional_shadow_max_distance = 488.0
+
+[node name="level1" parent="." instance=ExtResource("1_wp4xf")]
 
 [node name="SpawnPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16394, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_brvut")
