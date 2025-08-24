@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://kct1rmv5qikv"]
+
+[ext_resource type="Texture2D" uid="uid://dwt2by2wyof3c" path="res://glb/images.jpeg" id="1_465jp"]
+[ext_resource type="MeshLibrary" uid="uid://bwpqb5xsjr5wu" path="res://mesh_library/blocks_mesh_lib.tres" id="2_1o5x8"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7qh1q"]
+panorama = ExtResource("1_465jp")
+filter = false
+
+[sub_resource type="Sky" id="Sky_euk3g"]
+sky_material = SubResource("PanoramaSkyMaterial_7qh1q")
+
+[sub_resource type="Environment" id="Environment_qraxk"]
+background_mode = 2
+sky = SubResource("Sky_euk3g")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qraxk")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_1o5x8")
